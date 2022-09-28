@@ -1,0 +1,20 @@
+{
+  "name": "my_traveling",
+  "version": "1.0.0",
+  "description": "Project developed using PERN Stack.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server/src/index.js",
+    "start": "node server/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoffeeAndPastel/my_travelling.git"
+  },
+  "author": "CoffeeAndPastel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CoffeeAndPastel/my_travelling/issues"
+  },
+  "homepage": "https://github.com/CoffeeAndPastel/my_travelling#readme"
+}
