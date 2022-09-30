@@ -1,46 +1,68 @@
-const {faker} = require('@faker-js/faker');
+const { faker } = require("@faker-js/faker");
 
 class UserService {
-    constructor() {
-        this.users = [];
-        this._generate();
-    }
-  
-    async _generate(){
-        for(let i = 0; i < 10; i++){
-            this.users.push({
-                id: (i + 1),
-                email: faker.internet.email(),
-                password: faker.internet.password(),
-                profilePhoto: faker.image.avatar(),
-                role: null,
-                recoveryToken: null
-            })
-        }
-    }
+  constructor() {
+    this.users = [];
+    this._generate();
+  }
 
-    async create(data) {
-      return data;
-    }
-  
-    async find() {
-      return this.users;
-    }
-  
-    async findOne(id) {
-      return { id };
-    }
-  
-    async update(id, changes) {
-      return {
-        id,
-        changes,
-      };
-    }
-  
-    async delete(id) {
-      return { id };
+  async _generate() {
+    for (let i = 0; i < 10; i++) {
+      this.users.push({
+        id: i + 1,
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        profilePhoto: faker.image.avatar(),
+        role: null,
+        recoveryToken: null,
+      });
     }
   }
-  
-  module.exports = UserService;
+
+  async create(data) {
+    console.log(data);
+    const user = {
+      id: this.users.length + 1,
+      email: data.email,
+      password: data.password,
+      profilePhoto: data.profilePhoto,
+      role: data.role,
+      recoveryToken: null,
+    };
+    this.users.push(user);
+    return user;
+  }
+
+  async find() {
+    return this.users;
+  }
+
+  findIndex(id) {
+    const index = this.users.findIndex(user => user.id == id);
+    if(index === -1){
+        throw new Error("User not found");
+    }
+    return index
+  }
+
+  async findOne(id) {
+    const index = this.findIndex(id);
+    return this.users[index];
+  }
+
+  async update(id, changes) {
+    const index = this.findIndex(id);
+    this.users[index] =  {
+        ...this.users[index],
+        ...changes
+    }
+    return this.users[index];
+  }
+
+  async delete(id) {
+    const index = this.findIndex(id);
+    this.users.splice(index, 1)
+  }
+}
+
+module.exports = UserService;
