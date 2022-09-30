@@ -1,4 +1,5 @@
 const { faker } = require("@faker-js/faker");
+const boom = require('@hapi/boom');
 
 class UserService {
   constructor() {
@@ -25,7 +26,7 @@ class UserService {
       id: this.users.length + 1,
       email: data.email,
       password: data.password,
-      profilePhoto: data.profilePhoto,
+      profilePhoto: data.profilePhoto || null,
       role: data.role,
       recoveryToken: null,
     };
@@ -40,7 +41,7 @@ class UserService {
   findIndex(id) {
     const index = this.users.findIndex(user => user.id == id);
     if(index === -1){
-        throw new Error("User not found");
+        throw boom.notFound("User not found")
     }
     return index
   }
