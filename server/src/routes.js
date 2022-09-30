@@ -1,21 +1,17 @@
-const express = require('express')
+const express = require('express');
+const { userRouter } = require('../entities/users/route');
 
 function routerApi(app){
-    //Root route
     const router = express.Router();
     app.use('/api/v1', router);
-    //Routes
+
+    router.use('/users',userRouter)
+
     router.get('/', (req, res) => {
         res.json({
             messaje: "Hello main route"
         })
     })
-    router.get('/example', (req, res) => {
-        res.json({
-            messaje: "Hello example route"
-        })
-    })
-    // router.use('/example', );
 }
 
 module.exports = routerApi;

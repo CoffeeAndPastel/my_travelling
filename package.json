@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/CoffeeAndPastel/my_travelling#readme",
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
