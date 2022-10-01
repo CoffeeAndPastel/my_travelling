@@ -1,4 +1,5 @@
 const express = require('express');
+const { customerRouter } = require('../entities/customers/route');
 const { userRouter } = require('../entities/users/route');
 
 function routerApi(app){
@@ -6,6 +7,7 @@ function routerApi(app){
     app.use('/api/v1', router);
 
     router.use('/users',userRouter)
+    router.use('/customers',customerRouter)
 
     router.get('/', (req, res) => {
         res.json({
