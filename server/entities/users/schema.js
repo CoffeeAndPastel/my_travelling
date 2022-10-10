@@ -1,26 +1,26 @@
 const Joi = require("joi");
 
-const id = Joi.number();
+const phone = Joi.string().pattern(/[0-9]{10}$/);
+const username = Joi.string().min(3);
 const email = Joi.string().email();
 const password = Joi.string().alphanum().min(6);
-const profilePhoto = Joi.string().uri();
-const role = Joi.string();
+const iconPhoto = Joi.string().uri();
 
-const createUserSchema = Joi.object({
+
+const createUserSchema = {
+  phone,
+  username: username.required(),
   email: email.required(),
   password: password.required(),
-  role: role.required(),
-  profilePhoto,
-});
+  iconPhoto,
+};
 
-const updateUserSchema = Joi.object({
-  profilePhoto,
+const updateUserSchema = {
+  phone,
+  username,
   email,
-  role,
-});
+  password,
+  iconPhoto,
+};
 
-const getUserSchema = Joi.object({
-  id: id.required(),
-});
-
-module.exports = {createUserSchema, updateUserSchema, getUserSchema}
+module.exports = {createUserSchema, updateUserSchema}

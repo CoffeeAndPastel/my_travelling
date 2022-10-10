@@ -1,32 +1,33 @@
 const { faker } = require("@faker-js/faker");
 const boom = require('@hapi/boom');
+const UserService = require("../users/service");
 
 class CustomerService {
   constructor() {
+    this.userService = new UserService();
     this.customers = [];
     this._generate();
   }
 
   async _generate() {
     for (let i = 0; i < 10; i++) {
+      const userData = this.userService.generate();
       this.customers.push({
         id: i + 1,
         name: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        phone: faker.phone.number('##########'),
-        userId: faker.datatype.number({min: 1, max: 10})
+        ...userData
       });
     }
   }
 
   async create(data) {
-    console.log(data);
+    const newUser = this.userService.create(data);
     const customer = {
       id: this.customers.length + 1,
       name: data.name,
       lastName: data.lastName,
-      phone: data.phone,
-      userId: data.userId
+      ...newUser
     };
     this.customers.push(customer);
     return customer;
@@ -53,7 +54,8 @@ class CustomerService {
     const index = this.findIndex(id);
     this.customers[index] =  {
         ...this.customers[index],
-        ...changes
+        ...changes,
+        modfiedAt: faker.datatype.datetime()
     }
     return this.customers[index];
   }

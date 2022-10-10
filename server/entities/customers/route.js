@@ -51,7 +51,7 @@ customerRouter.patch('/:id',
             const body = req.body;
             const customer = await service.update(id, body)
             res.status(201).json({
-                messaje: `Customer with id: ${id} modify`,
+                messaje: `Customer with id: ${id} modified`,
                 customer
             })
         } catch (error) {
