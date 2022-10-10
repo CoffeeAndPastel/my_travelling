@@ -66,7 +66,7 @@ customerRouter.delete('/:id',
         try {
             const { id } = req.params;
             await service.delete(id)
-            res.status(201).json({
+            res.status(200).json({
                 messaje: `Customer with id: ${id} deleted`,
             })
         } catch (error) {
