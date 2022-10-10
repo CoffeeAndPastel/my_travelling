@@ -1,4 +1,5 @@
 const express = require('express');
+const { agencyRouter } = require('../entities/agencies/route');
 const { customerRouter } = require('../entities/customers/route');
 const { driverRouter } = require('../entities/drivers/route');
 
@@ -8,6 +9,7 @@ function routerApi(app){
 
     router.use('/customers',customerRouter)
     router.use('/drivers',driverRouter)
+    router.use('/agencies',agencyRouter)
 
     router.get('/', (req, res) => {
         res.json({

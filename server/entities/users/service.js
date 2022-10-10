@@ -25,7 +25,6 @@ class UserService {
         createAt: faker.datatype.datetime(),
         modfiedAt: null,
     };
-    console.log(user);
     return user;
   }
 }
