@@ -2,6 +2,7 @@ const express = require('express');
 const { agencyRouter } = require('../entities/agencies/route');
 const { customerRouter } = require('../entities/customers/route');
 const { driverRouter } = require('../entities/drivers/route');
+const { offerRouter } = require('../entities/offers/route');
 const { tripRouter } = require('../entities/trips/route');
 
 function routerApi(app){
@@ -12,6 +13,7 @@ function routerApi(app){
     router.use('/drivers',driverRouter)
     router.use('/agencies',agencyRouter)
     router.use('/trips',tripRouter)
+    router.use('/offers',offerRouter)
 
     router.get('/', (req, res) => {
         res.json({
