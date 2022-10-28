@@ -15,7 +15,7 @@ class Offer {
         state: 0,
         agencyId: faker.datatype.number(10),
         driverId: faker.datatype.number(10),
-        price: faker.datatype.number({ precision: 0.01 }),
+        price: faker.commerce.price(),
         createAt: faker.datatype.datetime(),
         modfiedAt: null,
       });
