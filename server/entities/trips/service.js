@@ -21,7 +21,7 @@ class TripService {
         customerId: faker.datatype.number(10),
         agencyId: null,
         driverId: null,
-        createAt: faker.datatype.datetime(),
+        createdAt: faker.datatype.datetime(),
         modifiedAt: null,
       });
     }
@@ -39,7 +39,7 @@ class TripService {
       customerId: data.customerId,
       agencyId: null,
       driverId: null,
-      createAt: faker.datatype.datetime(),
+      createdAt: faker.datatype.datetime(),
       modifiedAt: null,
     };
     this.trips.push(trip);

@@ -9,7 +9,7 @@ class UserService {
         password: faker.internet.password(),
         iconPhoto: faker.image.avatar(),
         recoveryToken: null,
-        createAt: faker.datatype.datetime(),
+        createdAt: faker.datatype.datetime(),
         modifiedAt: null,
     }
   }
@@ -22,7 +22,7 @@ class UserService {
         password: data.password,
         iconPhoto: data.iconPhoto || null,
         recoveryToken: null,
-        createAt: faker.datatype.datetime(),
+        createdAt: faker.datatype.datetime(),
         modifiedAt: null,
     };
     return user;

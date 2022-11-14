@@ -16,7 +16,7 @@ class Offer {
         agencyId: faker.datatype.number(10),
         driverId: faker.datatype.number(10),
         price: faker.commerce.price(),
-        createAt: faker.datatype.datetime(),
+        createdAt: faker.datatype.datetime(),
         modifiedAt: null,
       });
     }
@@ -30,7 +30,7 @@ class Offer {
       agencyId: data.agencyId,
       driverId: data.driverId,
       price: data.price,
-      createAt: faker.datatype.datetime(),
+      createdAt: faker.datatype.datetime(),
       modifiedAt: null,
     };
     this.offers.push(offer);
