@@ -51,7 +51,7 @@ class DriversOpinionsService {
     this.driversOpinions[index] =  {
         ...this.driversOpinions[index],
         ...changes,
-        modfiedAt: faker.datatype.datetime()
+        modifiedAt: faker.datatype.datetime()
     }
     return this.driversOpinions[index];
   }

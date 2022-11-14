@@ -55,7 +55,7 @@ class CustomerService {
     this.customers[index] =  {
         ...this.customers[index],
         ...changes,
-        modfiedAt: faker.datatype.datetime()
+        modifiedAt: faker.datatype.datetime()
     }
     return this.customers[index];
   }

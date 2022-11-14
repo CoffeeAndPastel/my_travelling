@@ -53,7 +53,7 @@ class CustomersOpinionsService {
     this.customersOpinions[index] =  {
         ...this.customersOpinions[index],
         ...changes,
-        modfiedAt: faker.datatype.datetime()
+        modifiedAt: faker.datatype.datetime()
     }
     return this.customersOpinions[index];
   }

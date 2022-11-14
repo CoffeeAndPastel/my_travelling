@@ -17,7 +17,7 @@ class Offer {
         driverId: faker.datatype.number(10),
         price: faker.commerce.price(),
         createAt: faker.datatype.datetime(),
-        modfiedAt: null,
+        modifiedAt: null,
       });
     }
   }
@@ -31,7 +31,7 @@ class Offer {
       driverId: data.driverId,
       price: data.price,
       createAt: faker.datatype.datetime(),
-      modfiedAt: null,
+      modifiedAt: null,
     };
     this.offers.push(offer);
     return offer;
@@ -59,7 +59,7 @@ class Offer {
     this.offers[index] =  {
         ...this.offers[index],
         ...changes,
-        modfiedAt: faker.datatype.datetime()
+        modifiedAt: faker.datatype.datetime()
     }
     return this.offers[index];
   }

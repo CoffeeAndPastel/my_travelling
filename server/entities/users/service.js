@@ -10,7 +10,7 @@ class UserService {
         iconPhoto: faker.image.avatar(),
         recoveryToken: null,
         createAt: faker.datatype.datetime(),
-        modfiedAt: null,
+        modifiedAt: null,
     }
   }
 
@@ -23,7 +23,7 @@ class UserService {
         iconPhoto: data.iconPhoto || null,
         recoveryToken: null,
         createAt: faker.datatype.datetime(),
-        modfiedAt: null,
+        modifiedAt: null,
     };
     return user;
   }

@@ -22,7 +22,7 @@ class TripService {
         agencyId: null,
         driverId: null,
         createAt: faker.datatype.datetime(),
-        modfiedAt: null,
+        modifiedAt: null,
       });
     }
   }
@@ -40,7 +40,7 @@ class TripService {
       agencyId: null,
       driverId: null,
       createAt: faker.datatype.datetime(),
-      modfiedAt: null,
+      modifiedAt: null,
     };
     this.trips.push(trip);
     return trip;
@@ -69,7 +69,7 @@ class TripService {
       ...this.trips[index],
       ...changes,
       // state: (this.trips[index].agencyId && this.trips[index].driverId && 1 || this.trips[]),
-      modfiedAt: faker.datatype.datetime()
+      modifiedAt: faker.datatype.datetime()
     }
     if(this.trips[index].agencyId && this.trips[index].driverId){
         this.trips[index]['state'] = 1;

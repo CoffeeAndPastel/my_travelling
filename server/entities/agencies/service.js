@@ -51,7 +51,7 @@ class AgencyService {
     this.agencies[index] =  {
         ...this.agencies[index],
         ...changes,
-        modfiedAt: faker.datatype.datetime()
+        modifiedAt: faker.datatype.datetime()
     }
     return this.agencies[index];
   }
