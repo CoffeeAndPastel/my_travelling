@@ -1,5 +1,6 @@
 const { faker } = require("@faker-js/faker");
 const boom = require('@hapi/boom');
+const { models } = require("../../libs/sequelize");
 const UserService = require("../users/service");
 
 class AgencyService {
@@ -30,7 +31,8 @@ class AgencyService {
   }
 
   async find() {
-    return this.agencies;
+    const agencies = await models.Agency.findAll();
+    return agencies;
   }
 
   findIndex(id) {

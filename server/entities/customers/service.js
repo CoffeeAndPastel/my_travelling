@@ -1,3 +1,4 @@
+const { models } = require("../../libs/sequelize");
 const { faker } = require("@faker-js/faker");
 const boom = require('@hapi/boom');
 const UserService = require("../users/service");
@@ -34,7 +35,8 @@ class CustomerService {
   }
 
   async find() {
-    return this.customers;
+    const customers = await models.Customer.findAll();
+    return customers;
   }
 
   findIndex(id) {
