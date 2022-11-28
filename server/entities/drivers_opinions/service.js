@@ -1,64 +1,43 @@
-const { faker } = require("@faker-js/faker");
+const { models } = require("../../libs/sequelize");
 const boom = require('@hapi/boom');
-const OpinionService = require("../opinions/service");
 
 class DriversOpinionsService {
-  constructor() {
-    this.OpinionService = new OpinionService();
-    this.driversOpinions = [];
-    this._generate();
-  }
-
-  async _generate() {
-    for (let i = 0; i < 10; i++) {
-      const opinionData = this.OpinionService.generate();
-      this.driversOpinions.push({
-        id: i + 1,
-        ...opinionData
-      });
-    }
-  }
 
   async create(data) {
-    const newOpinion = this.OpinionService.create(data);
-    const driverOpinion = {
-      id: this.driversOpinions.length + 1,
-      ...newOpinion
-    };
-    this.driversOpinions.push(driverOpinion);
-    return driverOpinion;
+    const newOpinion = await models.DriversOpinions.create(data);
+    return newOpinion;
   }
 
   async find() {
-    return this.driversOpinions;
-  }
-
-  findIndex(id) {
-    const index = this.driversOpinions.findIndex(driverOpinion => driverOpinion.id == id);
-    if(index === -1){
-        throw boom.notFound("Opinion not found")
-    }
-    return index
+    const driversOpinions = await models.DriversOpinions.findAll();
+    return driversOpinions;
   }
 
   async findOne(id) {
-    const index = this.findIndex(id);
-    return this.driversOpinions[index];
+    const opinion = await models.DriversOpinions.findByPk(id,{
+      include: ['trip','customer','driver']
+    });
+
+    delete opinion.dataValues.trip.dataValues.driverId;
+    delete opinion.dataValues.trip.dataValues.customerId;
+    delete opinion.dataValues.trip.dataValues.agencyId;
+
+    if(!opinion){
+      throw boom.notFound('Opinion not found');
+    }
+
+    return opinion;
   }
 
   async update(id, changes) {
-    const index = this.findIndex(id);
-    this.driversOpinions[index] =  {
-        ...this.driversOpinions[index],
-        ...changes,
-        modifiedAt: faker.datatype.datetime()
-    }
-    return this.driversOpinions[index];
+    const opinion = await this.findOne(id);
+    const response = await opinion.update(changes);
+    return response;
   }
 
   async delete(id) {
-    const index = this.findIndex(id);
-    this.driversOpinions.splice(index, 1)
+    const opinion = await this.findOne(id);
+    await opinion.destroy();
   }
 }
 

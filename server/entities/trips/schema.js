@@ -10,6 +10,7 @@ const numberPassengers = Joi.number().min(1);
 const customerId = Joi.number();
 const agencyId = Joi.number();
 const driverId = Joi.number();
+const price = Joi.number();
 
 
 const createTripSchema = Joi.object({
@@ -29,7 +30,8 @@ const updateTripSchema = Joi.object({
   numberPassengers,
   customerId,
   agencyId,
-  driverId
+  driverId,
+  price
 });
 
 const getTripSchema = Joi.object({

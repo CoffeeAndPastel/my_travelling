@@ -1,33 +1,11 @@
-const { faker } = require("@faker-js/faker");
 const boom = require('@hapi/boom');
 const { models } = require("../../libs/sequelize");
-const UserService = require("../users/service");
 
 class AgencyService {
-  constructor() {
-    this.userService = new UserService();
-    this.agencies = [];
-    this._generate();
-  }
-
-  async _generate() {
-    for (let i = 0; i < 10; i++) {
-      const userData = this.userService.generate();
-      this.agencies.push({
-        id: i + 1,
-        ...userData
-      });
-    }
-  }
 
   async create(data) {
-    const newUser = this.userService.create(data);
-    const agency = {
-      id: this.agencies.length + 1,
-      ...newUser
-    };
-    this.agencies.push(agency);
-    return agency;
+    const newAgency = await models.Agency.create(data);
+    return newAgency;
   }
 
   async find() {
@@ -35,32 +13,32 @@ class AgencyService {
     return agencies;
   }
 
-  findIndex(id) {
-    const index = this.agencies.findIndex(agency => agency.id == id);
-    if(index === -1){
-        throw boom.notFound("Agency not found")
-    }
-    return index
-  }
-
   async findOne(id) {
-    const index = this.findIndex(id);
-    return this.agencies[index];
+    const agency = await models.Agency.findByPk(id,{
+      include: ['drivers','trips']
+    });
+    agency.dataValues.drivers.map(driver => {
+      delete driver.dataValues.agencyId;
+      delete driver.dataValues.recoveryToken;
+    })
+    agency.dataValues.trips.map(trip => {
+      delete trip.dataValues.agencyId;
+    })
+    if(!agency){
+      throw boom.notFound('Agency not found');
+    }
+    return agency;
   }
 
   async update(id, changes) {
-    const index = this.findIndex(id);
-    this.agencies[index] =  {
-        ...this.agencies[index],
-        ...changes,
-        modifiedAt: faker.datatype.datetime()
-    }
-    return this.agencies[index];
+    const agency = await this.findOne(id);
+    const response = await agency.update(changes);
+    return response;
   }
 
   async delete(id) {
-    const index = this.findIndex(id);
-    this.agencies.splice(index, 1)
+    const agency = await this.findOne(id);
+    await agency.destroy();
   }
 }
 
