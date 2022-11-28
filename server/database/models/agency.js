@@ -10,7 +10,18 @@ const agencySchema = {
 class Agency extends Model{
 
   static associate(models) {
-    
+    this.hasMany(models.Driver, {
+      as: 'drivers',
+      foreignKey: 'agencyId'
+    });
+    this.hasMany(models.Trip, {
+      as: 'trips',
+      foreignKey: 'agencyId'
+    });
+    this.hasMany(models.Offer, {
+      as: 'offers',
+      foreignKey: 'agencyId'
+    });
   }
 
   static config(sequelize){

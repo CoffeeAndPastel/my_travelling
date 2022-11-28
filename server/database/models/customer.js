@@ -17,7 +17,18 @@ const customerSchema = {
 class Customer extends Model{
 
   static associate(models) {
-    
+    this.hasMany(models.Trip, {
+      as: 'trips',
+      foreignKey: 'customerId'
+    });
+    this.hasMany(models.DriversOpinions, {
+      as: 'myOpinons',
+      foreignKey: 'customerId'
+    });
+    this.hasMany(models.CustomersOpinions, {
+      as: 'opinons',
+      foreignKey: 'customerId'
+    });
   }
 
   static config(sequelize){

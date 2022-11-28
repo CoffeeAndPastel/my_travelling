@@ -14,7 +14,7 @@ const UserSchema = {
     type: DataTypes.STRING,
     unique: true,
   },
-  email: {
+  email: {  
     type: DataTypes.STRING,
     unique: true,
   },
