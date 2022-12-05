@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize} = require('sequelize');
 const { AGENCY_TABLE } = require('./agency');
-const { UserSchema } = require('./user');
+const { UserSchema, userHooks } = require('./user');
 
 const DRIVER_TABLE = 'drivers';
 
@@ -53,6 +53,7 @@ class Driver extends Model{
       sequelize,
       tableName: DRIVER_TABLE,
       modelName: 'Driver',
+      hooks: userHooks
     }
   }
 }

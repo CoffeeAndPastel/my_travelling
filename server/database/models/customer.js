@@ -1,5 +1,5 @@
 const { Model, DataTypes, Sequelize} = require('sequelize');
-const { UserSchema } = require('./user');
+const { UserSchema, userHooks } = require('./user');
 
 const CUSTOMER_TABLE = 'customers';
 
@@ -36,6 +36,7 @@ class Customer extends Model{
       sequelize,
       tableName: CUSTOMER_TABLE,
       modelName: 'Customer',
+      hooks: userHooks
     }
   }
 }

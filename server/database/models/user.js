@@ -1,4 +1,5 @@
 const { DataTypes, Sequelize } = require("sequelize");
+const bcrypt = require('bcrypt')
 
 const UserSchema = {
   id: {
@@ -33,4 +34,11 @@ const UserSchema = {
   },
 };
 
-module.exports = { UserSchema };
+const userHooks = {
+  beforeCreate: async (user, options) => {
+    const password = await bcrypt.hash(user.password, 10);
+    user.password = password;
+  },
+}
+
+module.exports = { UserSchema, userHooks };
