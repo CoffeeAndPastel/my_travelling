@@ -30,6 +30,16 @@ class AgencyService {
     return agency;
   }
 
+  async findOneByEmail({email}){
+    const agency = await models.Agency.findOne({
+      where: {email}
+    })
+    if(!agency){
+      throw boom.notFound('Not found');
+    }
+    return agency;
+  }
+
   async update(id, changes) {
     const agency = await this.findOne(id);
     const response = await agency.update(changes);

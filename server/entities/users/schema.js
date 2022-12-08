@@ -23,4 +23,9 @@ const updateUserSchema = {
   iconPhoto,
 };
 
-module.exports = {createUserSchema, updateUserSchema}
+const loginUserSchema = {
+  email: email.required(),
+  password: password.required(),
+}
+
+module.exports = {createUserSchema, updateUserSchema, loginUserSchema}

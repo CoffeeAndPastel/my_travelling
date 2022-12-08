@@ -1,7 +1,8 @@
 const express = require('express');
 const validatorHandler = require('../../middlewares/validator');
 const AgencyService = require('./service');
-const {createAgencySchema, updateAgencySchema, getAgencySchema} = require('./schema');
+const {createAgencySchema, updateAgencySchema, getAgencySchema, loginAgencySchema} = require('./schema');
+const { loginHandler } = require('../../middlewares/auth');
 const agencyRouter = express.Router();
 const service = new AgencyService;
 
@@ -40,6 +41,18 @@ agencyRouter.post('/',
             next(error)
         }
     }
+);
+
+agencyRouter.post('/login',
+    validatorHandler(loginAgencySchema, 'body'),
+    loginHandler(service.findOneByEmail, 'agency'),
+    // async (req, res, next) => {
+    //     try{
+    //         res.status(200).json({messaje: "Succesfully", username: req.username})
+    //     }catch(error){
+    //         next(error)
+    //     }
+    // }
 );
 
 agencyRouter.patch('/:id', 
