@@ -3,6 +3,20 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { config } = require('../../config/config');
 
+
+function tokenHandler(req, res, next) {
+    if (!((req.url).includes('login')) && (req.method != 'POST')){
+        const token = req.get('JWT');
+         jwt.verify(token, config.jwtSecret, (err, decoded) => {
+            if(err)
+                throw boom.unauthorized()
+            else
+                req.payload = decoded
+        })
+    }
+    next();
+}
+
 function loginHandler(getUser, role){
     return async (req, res, next) => {
         try {
@@ -25,4 +39,4 @@ function loginHandler(getUser, role){
     }
 }
 
-module.exports =  {loginHandler};
+module.exports =  {tokenHandler, loginHandler};
