@@ -1,6 +1,7 @@
 const express = require('express');
+const { loginHandler } = require('../../middlewares/auth');
 const validatorHandler = require('../../middlewares/validator');
-const {createCustomerSchema, updateCustomerSchema, getCustomerSchema} = require('./schema');
+const {createCustomerSchema, updateCustomerSchema, getCustomerSchema, loginCustomerSchema} = require('./schema');
 const CustomerService = require('./service');
 const customerRouter = express.Router();
 const service = new CustomerService;
@@ -40,6 +41,11 @@ customerRouter.post('/',
             next(error)
         }
     }
+);
+
+customerRouter.post('/login',
+    validatorHandler(loginCustomerSchema, 'body'),
+    loginHandler(service.findOneByEmail, 'customer'),
 );
 
 customerRouter.patch('/:id', 

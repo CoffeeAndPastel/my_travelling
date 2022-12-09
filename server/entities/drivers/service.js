@@ -30,6 +30,16 @@ class DriverService {
     return driver;
   }
 
+  async findOneByEmail({email}){
+    const driver = await models.Driver.findOne({
+      where: {email}
+    })
+    if(!driver){
+      throw boom.notFound('Not found');
+    }
+    return driver;
+  }
+
   async update(id, changes) {
     const driver = await this.findOne(id);
     const response = await driver.update(changes);

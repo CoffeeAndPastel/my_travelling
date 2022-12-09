@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const { createUserSchema, updateUserSchema } = require("../users/schema");
+const { createUserSchema, updateUserSchema, loginUserSchema } = require("../users/schema");
 
 const id = Joi.number();
 const name = Joi.string().pattern(/^[A-Z]([a-z])+$/);
@@ -23,4 +23,8 @@ const getCustomerSchema = Joi.object({
   id: id.required(),
 });
 
-module.exports = {createCustomerSchema, updateCustomerSchema, getCustomerSchema}
+const loginCustomerSchema = Joi.object({
+  ...loginUserSchema
+});
+
+module.exports = {createCustomerSchema, updateCustomerSchema, getCustomerSchema, loginCustomerSchema}

@@ -46,13 +46,6 @@ agencyRouter.post('/',
 agencyRouter.post('/login',
     validatorHandler(loginAgencySchema, 'body'),
     loginHandler(service.findOneByEmail, 'agency'),
-    // async (req, res, next) => {
-    //     try{
-    //         res.status(200).json({messaje: "Succesfully", username: req.username})
-    //     }catch(error){
-    //         next(error)
-    //     }
-    // }
 );
 
 agencyRouter.patch('/:id', 

@@ -1,6 +1,7 @@
 const express = require('express');
+const { loginHandler } = require('../../middlewares/auth');
 const validatorHandler = require('../../middlewares/validator');
-const {createDriverSchema, updateDriverSchema, getDriverSchema} = require('./schema');
+const {createDriverSchema, updateDriverSchema, getDriverSchema, loginDriverSchema} = require('./schema');
 const DriverService = require('./service');
 const driverRouter = express.Router();
 const service = new DriverService;
@@ -40,6 +41,11 @@ driverRouter.post('/',
             next(error)
         }
     }
+);
+
+driverRouter.post('/login',
+    validatorHandler(loginDriverSchema, 'body'),
+    loginHandler(service.findOneByEmail, 'driver'),
 );
 
 driverRouter.patch('/:id', 
