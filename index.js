@@ -22,7 +22,7 @@ app.use(tokenHandler);
 
 routerApi(app)
    
-app.use(logErrors);
+// app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(sequelizeErrorHandler);
 app.use(errorHandler);
