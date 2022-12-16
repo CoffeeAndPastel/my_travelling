@@ -2,6 +2,7 @@ const express = require('express');
 const validatorHandler = require('../../middlewares/validator');
 const TripService = require('./service');
 const {createTripSchema, updateTripSchema, getTripSchema} = require('./schema');
+const { autorizationHandler } = require('../../middlewares/auth');
 const tripRouter = express.Router();
 const service = new TripService;
 
@@ -30,6 +31,7 @@ tripRouter.get('/:id',
 );
 
 tripRouter.post('/',
+    autorizationHandler('customer'),
     validatorHandler(createTripSchema, 'body'),
     async (req, res, next) => {
         try{
@@ -44,6 +46,7 @@ tripRouter.post('/',
 
 tripRouter.patch('/:id', 
     validatorHandler(getTripSchema, 'params'),
+    autorizationHandler('customer','driver'),
     validatorHandler(updateTripSchema, 'body'),
     async (req, res, next) => {
         try {
@@ -62,6 +65,7 @@ tripRouter.patch('/:id',
 
 tripRouter.delete('/:id', 
     validatorHandler(getTripSchema, 'params'),
+    autorizationHandler('customer'),
     async (req, res, next) => {
         try {
             const { id } = req.params;

@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginHandler } = require('../../middlewares/auth');
+const { loginHandler, autorizationHandler, sameIdHanlder } = require('../../middlewares/auth');
 const validatorHandler = require('../../middlewares/validator');
 const {createCustomerSchema, updateCustomerSchema, getCustomerSchema, loginCustomerSchema} = require('./schema');
 const CustomerService = require('./service');
@@ -19,6 +19,8 @@ customerRouter.get('/',
 
 customerRouter.get('/:id',
     validatorHandler(getCustomerSchema, 'params'),
+    autorizationHandler('customer'),
+    sameIdHanlder,
     async (req, res, next) => {
         try{
             const { id } = req.params;
@@ -50,6 +52,8 @@ customerRouter.post('/login',
 
 customerRouter.patch('/:id', 
     validatorHandler(getCustomerSchema, 'params'),
+    autorizationHandler('customer'),
+    sameIdHanlder,
     validatorHandler(updateCustomerSchema, 'body'),
     async (req, res, next) => {
         try {
@@ -68,6 +72,8 @@ customerRouter.patch('/:id',
 
 customerRouter.delete('/:id', 
     validatorHandler(getCustomerSchema, 'params'),
+    autorizationHandler('customer'),
+    sameIdHanlder,
     async (req, res, next) => {
         try {
             const { id } = req.params;

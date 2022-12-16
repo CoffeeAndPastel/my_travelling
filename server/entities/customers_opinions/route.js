@@ -1,4 +1,5 @@
 const express = require('express');
+const { autorizationHandler } = require('../../middlewares/auth');
 const validatorHandler = require('../../middlewares/validator');
 const {createCustomerOpinionSchema, updateCustomerOpinionSchema, getCustomerOpinionSchema} = require('./schema');
 const CustomersOpinionsService = require('./service');
@@ -30,6 +31,7 @@ customerOpinionRouter.get('/:id',
 );
 
 customerOpinionRouter.post('/',
+    autorizationHandler('customer'),
     validatorHandler(createCustomerOpinionSchema, 'body'),
     async (req, res, next) => {
         try{
@@ -44,6 +46,7 @@ customerOpinionRouter.post('/',
 
 customerOpinionRouter.patch('/:id', 
     validatorHandler(getCustomerOpinionSchema, 'params'),
+    autorizationHandler('customer'),
     validatorHandler(updateCustomerOpinionSchema, 'body'),
     async (req, res, next) => {
         try {
@@ -62,6 +65,7 @@ customerOpinionRouter.patch('/:id',
 
 customerOpinionRouter.delete('/:id', 
     validatorHandler(getCustomerOpinionSchema, 'params'),
+    autorizationHandler('customer'),
     async (req, res, next) => {
         try {
             const { id } = req.params;
